@@ -3,7 +3,7 @@
 import socket
 import cv2
 server_socket = socket.socket()
-server_socket.bind(('192.168.8.116', 8002))
+server_socket.bind(('192.168.1.104', 8001))
 server_socket.listen(1)
 
 connection, addr = server_socket.accept()
@@ -19,11 +19,12 @@ try:
 #    print(repr(data))
 #    print(len(data))
     
-    f = open('aa.jpg','wb')
+    f = open('img21.jpg','wb')
     f.write(data)
-    img = cv2.imread('aa.jpg')
+    img = cv2.imread('img21.jpg')
     cv2.imshow('image',img)
-    cv2.waitKey(0)
+    if cv2.waitKey(0) & 0xff == 27:
+        cv2.destroyAllWindows()
 finally:
     f.close()
     connection.close()

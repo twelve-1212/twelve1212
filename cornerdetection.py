@@ -7,7 +7,7 @@ Created on Wed Sep 12 16:05:52 2018
 import numpy as np
 import cv2
 
-img_i = cv2.imread('aa.jpg')
+img_i = cv2.imread('D:/twelve1212/camera1.3/img01.jpg')
 cv2.imshow('init_image',img_i)
 img_gray = cv2.cvtColor(img_i,cv2.COLOR_BGR2GRAY)
 img_32i = np.float32(img_gray)
