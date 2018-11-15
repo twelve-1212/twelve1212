@@ -6,7 +6,6 @@ Created on Tue Oct 30 19:59:52 2018
 """
 
 import numpy as np
-import matplotlib.pyplot as plt
 from math import *
 
 class point():
@@ -44,9 +43,12 @@ def MyLoookAt(eyex, eyey, eyez, centerx, centery, centerz, upx, upy, upz):
       matwtoc[1][2] = -forward.y
       matwtoc[2][2] = -forward.z
       matwtoc[3][3] = 1
-      print(matwtoc)
-      return matwtoc
+      matwtoc = np.mat(matwtoc) #该矩阵*最终坐标 = 当前坐标
+      lmat = matwtoc.I #取逆矩阵*当前坐标 = 最终坐标
+      #print(lmat)
+      return lmat
 
+#为保证translation在未变换过的xyz轴上进行，需在lookat函数前进行translation
 def MyTranslation(eyex,eyey,eyez):
       transmat = [[0 for i in range(4)] for i in range(4)]
       transmat[0][0] = 1
@@ -59,6 +61,7 @@ def MyTranslation(eyex,eyey,eyez):
       print(transmat)
       return transmat
 
+#透视投影
 def MyPerspective(fovy, aspect, zNear, zFar):
       pmat = [[0 for i in range(4)] for i in range(4)]
       pmat[0][0] = 1/(tan(fovy*pi/360)*aspect)
@@ -92,9 +95,9 @@ cubepoint_list = [
         [-1, 1, -1]
         ]
 
-eyex = 5.0
-eyey = 0.0
-eyez = 0.0
+eyex = 2.0
+eyey = 2.0
+eyez = 5.0
 cube = np.zeros((8,4))
 cubepoint = np.array(cubepoint_list)
 f_point = [[0 for i in range(2)] for i in range(8)]
@@ -102,9 +105,9 @@ for i in range(len(cubepoint_list)):
       cube[i] = np.append(cubepoint[i],1)
       aw = np.array([cube[i]]).T #列向量表示
       
-      ac = np.dot(MyLoookAt(eyex, eyey, eyez, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0), aw)
-      at = np.dot(MyTranslation(eyex,eyey,eyez), ac)
-      ap = np.dot(MyPerspective(60.0, 1.0, 1.0, 20.0), at)
+      at = np.dot(MyTranslation(eyex,eyey,eyez), aw)
+      ac = np.dot(MyLoookAt(eyex, eyey, eyez, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0), at)
+      ap = np.dot(MyPerspective(60.0, 1.0, 1.0, 20.0), ac)
       lap = ap.tolist()
       lan = [lap[0][0]/lap[3][0], lap[1][0]/lap[3][0], lap[2][0]/lap[3][0], 1]
       an = np.array([lan]).T
