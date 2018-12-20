@@ -85,7 +85,7 @@ def MyViewport(sx,sy,ws,hs,zNear,zFar):
       return viewmat
   
 cubepoint_list = [
-        [-122, 0, 22],  #[1, 1, 1]
+        [0, 0, 0],  #[1, 1, 1]
         [1, -1, 1], 
         [-1, -1, 1], 
         [-1, 1, 1], 
@@ -112,6 +112,14 @@ for i in range(len(cubepoint_list)):
       at = np.dot(MyTranslation(eyex,eyey,eyez), aw)
       ac = np.dot(MyLoookAt(eyex, eyey, eyez, centerx, centery, centerz, 0.0, 1.0, 0.0), at) #70(0,-7,0);71(0,4.35,0)
       ap = np.dot(MyPerspective(75.0, 1.78, 1.0, 20.0), ac)
+      
+#      mat1 = np.dot(MyLoookAt(eyex, eyey, eyez, centerx, centery, centerz, 0.0, 1.0, 0.0), MyTranslation(eyex,eyey,eyez))
+#      mattlp = np.dot(MyPerspective(75.0, 1.78, 1.0, 20.0), mat1)
+##      print(mattlp)
+#      amattlp = np.dot(mattlp, aw)
+#      print(ap)
+#      print(amattlp)
+      
       lap = ap.tolist()
       lan = [lap[0][0]/lap[3][0], lap[1][0]/lap[3][0], lap[2][0]/lap[3][0], 1]
       an = np.array([lan]).T
