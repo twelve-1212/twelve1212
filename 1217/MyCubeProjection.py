@@ -96,12 +96,12 @@ cubepoint_list = [
         ]
 #camera70_eye:(27, 24.3, 20.5)
 #camera71_eye:(-27,24,-20.5)
-eyex = 27.0
-eyey = 24.3
-eyez = 20.5
-centerx = 14.0
-centery = 10.7
-centerz = -20.7
+eyex = -27.0
+eyey = 24.0
+eyez = -20.5
+centerx = 8.0
+centery = 7.7
+centerz = 7.0
 cube = np.zeros((8,4))
 cubepoint = np.array(cubepoint_list)
 f_point = [[0 for i in range(2)] for i in range(8)]
@@ -113,9 +113,9 @@ for i in range(len(cubepoint_list)):
       ac = np.dot(MyLoookAt(eyex, eyey, eyez, centerx, centery, centerz, 0.0, 1.0, 0.0), at) #70(0,-7,0);71(0,4.35,0)
       ap = np.dot(MyPerspective(75.0, 1.78, 1.0, 20.0), ac)
       
-#      mat1 = np.dot(MyLoookAt(eyex, eyey, eyez, centerx, centery, centerz, 0.0, 1.0, 0.0), MyTranslation(eyex,eyey,eyez))
-#      mattlp = np.dot(MyPerspective(75.0, 1.78, 1.0, 20.0), mat1)
-##      print(mattlp)
+      mat1 = np.dot(MyLoookAt(eyex, eyey, eyez, centerx, centery, centerz, 0.0, 1.0, 0.0), MyTranslation(eyex,eyey,eyez))
+      mattlp = np.dot(MyPerspective(75.0, 1.78, 1.0, 20.0), mat1)
+      print(mattlp)
 #      amattlp = np.dot(mattlp, aw)
 #      print(ap)
 #      print(amattlp)
