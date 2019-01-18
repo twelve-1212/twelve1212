@@ -6,7 +6,7 @@ Created on Mon Dec 17 19:25:39 2018
 """
 
 import cv2
-img=cv2.imread("D:\\twelve1212\\Test_pic\\img11.jpg") # 定片位置
+img=cv2.imread('D:\\twelve1212\\Tube_pic\\camera70_tube01.jpg') # 定片位置
 img=cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)  # 转化为灰度图
 # 图片的缩放
 #size=img.shape

@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 """
-Created on Mon Nov 26 22:19:54 2018
+Created on Fri Jan 18 10:49:36 2019
 
 @author: 施腾芮
 """
+
 import cv2
 import numpy as np
-
 
 def FindHull(img):
     maxcnt = []
@@ -46,39 +46,11 @@ def FindContour(img,hull):
             maxcnt2.append(i)
             cv2.drawContours(img, contours2, maxcnt2[0], (255, 0, 0), 1)
     cv2.imshow("finalimage", img)
-    return maxcnt2[0]
-
-def Pic_Process(img, cnt):
-      #contours[0]为右边那条轮廓拟合右边的那条轮廓
-    rows,cols = img.shape[:2]
-    [vx,vy,x,y]=cv2.fitLine(cnt,cv2.DIST_L2,0,0.01,0.01)
-    xa = x - (vx/vy) * y
-    ya = 0
-    xb = x + (vx/vy) * (rows - y)
-    yb = rows
-    img = cv2.line(img,(xa,ya),(xb,yb),(0,255,0),2)
-    return img
-
-def Split_Pic(img,n):
-    names = locals()
-    img_rows,img_cols = img.shape[:2]
-    for i in range(n):
-        names['img_split'+str(i)] = img[int(i*img_rows/n):int((i+1)*img_rows/n), 0:int(img_cols)]
-        names['pic'+str(i)] = Pic_Process(names['img_split'+str(i)], FindContour(img, FindHull(img)))
-        cv2.imwrite('D:\\twelve1212\\Tube_pic\\merge'+'%d'%i+'.jpg', names['pic'+str(i)])
-        cv2.imshow("img"+'%d'%i, names['pic'+str(i)])
-            
-def Merge_Pic(n):
-    names = locals()
-    imgfinal = cv2.imread('D:\\twelve1212\\Tube_pic\\merge0.jpg')
-    for i in range(1,n):
-        names['img_split'+str(i)] = cv2.imread('D:\\twelve1212\\Tube_pic\\merge'+'%d'%i+'.jpg')
-        imgfinal = np.concatenate((imgfinal, names['img_split'+str(i)]))
-    cv2.imshow("imgfinal", imgfinal)
+    
 
 if __name__ == '__main__':
     img = cv2.imread('D:\\twelve1212\\Tube_pic\\camera70_tube01.jpg')
-    Split_Pic(img,1)      
-    Merge_Pic(1)
+    hull = FindHull(img)
+    FindContour(img,hull)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
