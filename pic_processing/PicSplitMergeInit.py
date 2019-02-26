@@ -45,7 +45,7 @@ def Merge_Pic(n):
 
 if __name__ == '__main__':
       img = cv2.imread('D:\\twelve1212\\Tube_pic\\camera70_tube01_roi01.jpg')
-      Split_Pic(img,4)      
-      Merge_Pic(4)
+      Split_Pic(img,8)      
+      Merge_Pic(8)
       cv2.waitKey(0)
       cv2.destroyAllWindows()

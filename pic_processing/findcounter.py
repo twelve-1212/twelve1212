@@ -10,7 +10,7 @@ import numpy as np
 
 maxcnt = []
 maxcnt2 = []
-#cv2.namedWindow('img', cv2.WINDOW_AUTOSIZE)
+
 img = cv2.imread('D:\\twelve1212\\Tube_pic\\camera70_tube01.jpg')
 imgcopy = img.copy()
 gray = cv2.cvtColor(imgcopy, cv2.COLOR_BGR2GRAY)
@@ -51,22 +51,6 @@ for i in range(len(contours2)):
         maxcnt2.append(i)
 print(len(maxcnt2))
 cv2.drawContours(img, contours2, maxcnt2[0], (255, 0, 0), 1)
-#cv2.drawContours(img, contours2, -1, (255, 0, 0), 1)
-
-
-#cnt = contours2[maxcnt2[0]] 
-#rows,cols = img.shape[:2]
-#[vx,vy,x,y]=cv2.fitLine(cnt,cv2.DIST_L2,0,0.01,0.01)
-#xa = x - (vx/vy) * y
-#ya = 0
-#xb = x + (vx/vy) * (rows - y)
-#yb = rows
-#img = cv2.line(img,(xa,ya),(xb,yb),(0,255,0),2)
-
-#cv2.imshow("img", gray)
-#cv2.imshow("mask", mask)
-#cv2.imshow("erosion", erosion)
-#cv2.imshow("maskgray", masked_image)
 
 cv2.imshow("finalimage", img)
 cv2.waitKey(0)
